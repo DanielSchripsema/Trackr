@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-Route::get('/API', [App\Http\Controllers\APIController::class, 'index'])->name('index');
+Route::get('/API/{sender}&{recipient}', [App\Http\Controllers\APIController::class, 'insert'])->name('insert');
 
 
 Route::get('/', function () {

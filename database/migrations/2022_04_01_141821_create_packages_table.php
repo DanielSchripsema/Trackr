@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('status')->nullable(false)->change();
+            $table->string('status')->nullable();
+            $table->string('sender');
+            $table->string('recipient');
+            $table->string('trackingCode')->nullable()->unique();
         });
     }
 
