@@ -17,9 +17,17 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('status')->nullable();
+<<<<<<< Updated upstream
             $table->string('sender');
             $table->string('recipient');
             $table->string('trackingCode')->nullable()->unique();
+=======
+            $table->foreignId('sender_id');
+            $table->foreignId('recipient_id')->nullable();
+            $table->foreignId('sender_address_id');
+            $table->foreignId('recipient_address_id');
+            $table->string('tracking_code')->nullable()->unique();
+>>>>>>> Stashed changes
         });
     }
 
