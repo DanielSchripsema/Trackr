@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class package extends Model
 {
-    use HasFactory;
+    public function Sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+    public function Recipient()
+    {
+        return $this->belongsTo(User::class, 'recipient_id');
+    }
 }

@@ -15,9 +15,14 @@ class APIController extends Controller
 //        echo $recipient;
 //        echo $sender;
         $package = new Package();
-        $package->sender=$request->sender;
-        $package->recipient=$request->recipient;
+//        $package->sender=$request->sender;
+//        $package->recipient=$request->recipient;
 
+        if(Str::contains($request->recipient, '@')){
+
+            $data = users::all();
+
+        }
 
         if($package->save()){
             return['status'=>'data has been inserted'];
