@@ -6,6 +6,8 @@
             </a>
         </x-slot>
 
+	<h2> (__('Create a reciever account') </h2>
+
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

@@ -6,10 +6,12 @@
             </a>
         </x-slot>
 
+	<h2> (__('Create a super-admin account') </h2>
+
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register-reciever') }}">
+        <form method="POST" action="{{ route('register-super-admin') }}">
             @csrf
 
             <!-- Name -->
