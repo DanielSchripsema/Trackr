@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
-<<<<<<< Updated upstream
-    use HasFactory;
-=======
 
     protected $with = ['Sender', 'Recipient', 'SenderAddress', 'RecipientAddress'];
 
@@ -35,5 +32,4 @@ class Package extends Model
     }
 
 
->>>>>>> Stashed changes
 }
