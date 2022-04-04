@@ -32,7 +32,6 @@ class Package extends Model
         return $this->belongsTo(Address::class, 'sender_address_id');
     }
 
-
     public function Review()
     {
         return $this->hasOne(Review::class);

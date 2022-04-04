@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Review;
 
 class Package extends Model
 {
@@ -31,5 +32,9 @@ class Package extends Model
         return $this->belongsTo(Address::class, 'sender_address_id');
     }
 
+    public function Review()
+    {
+        return $this->hasOne(Review::class);
+    }
 
 }
