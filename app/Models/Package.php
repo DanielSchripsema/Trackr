@@ -8,10 +8,10 @@ use App\Models\Review;
 
 class Package extends Model
 {
-    
+
     protected $with = ['Sender', 'Recipient', 'SenderAddress', 'RecipientAddress', 'Review'];
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function Sender()
     {

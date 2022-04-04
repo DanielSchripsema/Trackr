@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    public $timestamps = true;
+    public $timestamps = false;
 
     public function User()
     {
