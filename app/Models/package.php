@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
 {
+
+    protected $with = ['Sender', 'Recipient', 'SenderAddress', 'RecipientAddress'];
+
+
     public function Sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
@@ -15,4 +19,16 @@ class Package extends Model
     {
         return $this->belongsTo(User::class, 'recipient_id');
     }
+
+    public function RecipientAddress()
+    {
+        return $this->belongsTo(Address::class, 'recipient_address_id');
+    }
+
+    public function SenderAddress()
+    {
+        return $this->belongsTo(Address::class, 'sender_address_id');
+    }
+
+
 }
