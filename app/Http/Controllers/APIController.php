@@ -11,45 +11,81 @@ class APIController extends Controller
 
     function insert(Request $request)
     {
-        $package = new Package();
-        //sender check if exist
-        if($this->checkIfExist($request->sender) == false){
-           return['status'=>'sender does not exist'];
-        }else{
-            $acc = $this->getUser($request->sender);
-            $package->sender_id = $acc->id;
-            $package->sender_address_id = $this->getAddress($acc->id);
-        }
-        if($request->recipient != null){
-            if($this->checkIfExist($request->recipient) == true){
-                $acc = $this->getUser($request->recipient);
-                $package->recipient_id = $acc->id;
-                $package->recipient_address_id = $this->makeAddress($acc->id, $request->RecipientCountry, $request->RecipientStreetName, $request->RecipientHouseNumber, $request->RecipientPostalCode, $request->RecipientCity);
 
+        if($this->checkIfExist($request->recipient) == false){
+            return 'false';
+        }else{
+            $package = new Package();
+            $accrecipient = $this->getUser($request->recipient);
+            $package->recipient_id = $accrecipient->id;
+            $package->recipient_address_id = $this->makeAddress($request->FirstnameRecipient, $request->LastnameRecipient, $request->RecipientCountry, $request->RecipientStreetName, $request->RecipientHouseNumber, $request->RecipientPostalCode, $request->RecipientCity);
+            $package->sender_address_id = $this->makeAddress($request->FirstnameSender, $request->LastnameSender, $request->SenderCountry, $request->SenderStreetName, $request->SenderHouseNumber, $request->SenderPostalCode, $request->SenderCity);
+            $package->EmailRecipient = $request->recipient;
+            $package->EmailSender = $request->sender;
+            if($this->checkIfExist($request->sender)) {
+                $accsender = $this->getUser($request->sender);
+                $package->sender_id = $accsender->id;
+            }
+            if($package->save()){
+                return $package->id;
+            }else{
+                return 'false';
             }
         }
-        $package->recipient_address_id = $this->makeAddress($acc->id, $request->RecipientCountry, $request->RecipientStreetName, $request->RecipientHouseNumber, $request->RecipientPostalCode, $request->RecipientCity);
-
-
-        if($package->save()){
-            return['status'=>'data has been inserted'];
-        }else{
-            return['status'=>'Oh something went wrong, the data was unable to insert'];
-        }
-
     }
 
-    public function makeAddress(int $accID, $country, $StreetName, $HouseNumber, $PostalCode, $City){
-        $address = new Address();
-        $address->country = $country;
-        $address->street_name = $StreetName;
-        $address->house_number = $HouseNumber;
-        $address->postal_code = $PostalCode;
-        $address->city = $City;
-        if($accID != null){
-            $address->user_id = $accID;
+    function ChangeStatus(Request $request){
+        $status = null;
+
+        switch ($request->status) {
+            case 'signed up':
+                $status = 'signed up';
+                break;
+            case 'printed':
+                $status = 'printed';
+                break;
+            case 'delivered':
+                $status = 'delivered';
+                break;
+            case 'sorting centre':
+                $status = 'sorting centre';
+                break;
+            case 'on the way':
+                $status = 'on the way';
+                break;
+            }
+            if($status != null && $this->packageExist($request->packageID)){
+                DB::table('packages')->where('id', $request->packageID)->update(['status'=>$status]);
+                return 'true';
+            }else{
+                return 'false';
+            }
+    }
+
+
+    public function makeAddress($Fistname, $Lastname, $country, $StreetName, $HouseNumber, $PostalCode, $City){
+        $Query = DB::table('addresses')
+                            ->where('country', '=',$country)
+                            ->where('street_name', '=',$StreetName)
+                            ->where('house_number', '=',$HouseNumber)
+                            ->where('postal_code', '=',$PostalCode)
+                            ->where('city', '=',$City)
+                            ->where('firstname', '=', $Fistname)
+                            ->where('lastname', '=', $Lastname)
+            ->first();
+        if($Query != null){
+            $address = $Query;
+        }else{
+            $address = new Address();
+            $address->country = $country;
+            $address->street_name = $StreetName;
+            $address->house_number = $HouseNumber;
+            $address->postal_code = $PostalCode;
+            $address->city = $City;
+            $address->firstname = $Fistname;
+            $address->lastname = $Lastname;
+          $address->save();
         }
-        $address->save();
        return $address->id;
     }
 
@@ -73,11 +109,17 @@ class APIController extends Controller
     public function getAddress(int $senderID)
     {
         $addressID = DB::table('addresses')->where('user_id', $senderID)->first();
-
-
-
             return $addressID->id;
+    }
 
+    private function packageExist(int $packageID)
+    {
+        $package = DB::table('packages')->where('id', $packageID)->first();
+        if($package == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 

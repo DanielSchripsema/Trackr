@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
             $table->String('firstname')->nullable();
             $table->String('lastname')->nullable();
-            $table->foreignId('user_id')->nullable();
             $table->String('country');
             $table->String('street_name');
             $table->String('house_number');

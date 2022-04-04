@@ -10,7 +10,6 @@ class Package extends Model
 
     protected $with = ['Sender', 'Recipient', 'SenderAddress', 'RecipientAddress'];
 
-    public $timestamps = false;
 
     public function Sender()
     {
