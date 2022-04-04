@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,26 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/dashboard/outgoing-packages', [PackageController::class, 'outgoingPackages'])
+	->middleware(['auth'])->name('outgoing-packages');
+
+Route::get('/dashboard/incoming-packages', [PackageController::class, 'incomingPackages'])
+	->middleware(['auth'])->name('incoming-packages');
+
+Route::post('/dashboard/print-lables', [PackageController::class, 'printLables'])
+	->middleware(['auth'])->name('print-lables');
+
+Route::get('/dashboard/review-delivery/{packageId}', [ReviewController::class, 'create'])
+	->middleware(['auth'])->name('review-delivery');
+
+Route::post('/dashboard/add-delivery-review', [ReviewController::class, 'store'])
+	->middleware(['auth'])->name('add-delivery-review');
+
+Route::get('/package/{id}', [PackageController::class, 'getGuestPackage'])
+	->name('guest-package');
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 Route::get('/API/{sender}&{recipient}', [App\Http\Controllers\APIController::class, 'insert'])->name('insert');

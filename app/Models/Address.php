@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class address extends Model
 {
+
+    public $timestamps = false;
+
     public function User()
     {
+
         return $this->belongsTo(User::class, 'user_id');
     }
 

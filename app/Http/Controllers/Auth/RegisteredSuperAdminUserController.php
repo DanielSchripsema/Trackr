@@ -45,9 +45,6 @@ class RegisteredSuperAdminUserController extends Controller
         ]);
 
         event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(Route("register-super-admin"));
     }
 }
