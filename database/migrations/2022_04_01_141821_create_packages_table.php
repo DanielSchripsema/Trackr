@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('sender_address_id');
             $table->foreignId('recipient_address_id');
             $table->string('tracking_code')->nullable()->unique();
+            $table->dateTime('pick_up_time')->nullable();
         });
     }
 

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Address;
 use App\Models\Package;
 use http\Client\Curl\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -14,7 +16,11 @@ use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class AdminController extends Controller
 {
-
+    protected $dates = [
+        'pick_up_time',
+        'checkDate',
+        '$checkDate'
+    ];
 	public function index(){
 		return view('admin');
 	}
@@ -24,16 +30,9 @@ class AdminController extends Controller
         $packages = Package::all()->where('sender_id', '=', Auth::id());
         $ValidPackages = [];
         foreach ($packages as $package){
-           $checkDate = $package->created_at;
-           $checkDate->addDays(-1);
-            $checkDate->hour = '15';
-            $checkDate->minute = '00';
-            $checkDate->second = '00';
-
-           //$date = new DateTime($checkDate->year + '-'+ $checkDate->month + '-' + $checkDate->day + '15:00:00');
-          // echo($package->created_at);
-
-            array_push($ValidPackages, $package);
+         if($package->status != 'delivered' && $package->status != 'on the way' && $package->status != 'printed'){
+             array_push($ValidPackages, $package);
+         }
         }
         return view('pickUpPlanSystem')->with('packages', $ValidPackages);
     }
@@ -48,19 +47,25 @@ class AdminController extends Controller
     }
     public function ConfirmPickUpChange(Request $request)
     {
-        $validated = $request->validate([
-            'Country' => 'bail|required',
-            'Srteetname' => 'required',
-            'housenumber' => 'required',
-            'postalcode' => 'required',
-            'Country' => 'required',
-            'City' => 'required',
-            'Date' => 'required'
-        ]);
+        $carbon = Carbon::now();
+        $carbon = $carbon->addDays(1);
+        $carbon = $carbon->addHour(9);
+
+            $validated = $request->validate([
+                'Country' => 'bail|required',
+                'Srteetname' => 'required',
+                'housenumber' => 'required|integer|min:1',
+                'postalcode' => 'required|required|regex:/\b\d{4} [a-zA-Z]{2}\b/',
+                'Country' => 'required',
+                'City' => 'required',
+                'Date' => 'required|after_or_equal:' . date($carbon),
+            ]);
+
         foreach($request->package as $id) {
             $packages = Package::find($id);
             $idAddress = $this->makeAddress($this->getFirstname($packages->recipient_address_id), $this->getlastname($packages->recipient_address_id),$request->Country, $request->Srteetname, $request->housenumber, $request->postalcode, $request->City);
             $packages->recipient_address_id = $idAddress;
+            $packages->pick_up_time = $request->Date;
             $packages->save();
         };
         $packagesss = Package::all()->where('sender_id', '=', Auth::id());

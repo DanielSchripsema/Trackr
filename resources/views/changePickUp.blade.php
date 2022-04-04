@@ -70,6 +70,7 @@
                                 <input type="hidden" name="package[]" value="{{ $package->id }}">
 
                                 Aangemeld sinds: {{ $package->created_at}} <br>
+                                Pick up time: {{ $package->pick_up_time}} <br>
                                 Status: {{ $package->status}} <br>
                                 Sender: {{ $package->Sender->name }}  <br>
                                 Sharable link: <span style="background-color: lightgray; color: black">
