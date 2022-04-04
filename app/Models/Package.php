@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
 
-    protected $with = ['Sender', 'Recipient', 'SenderAddress', 'RecipientAddress'];
+    protected $with = ['Sender', 'Recipient', 'SenderAddress', 'RecipientAddress', 'Review'];
 
+    public $timestamps = true;
 
     public function Sender()
     {

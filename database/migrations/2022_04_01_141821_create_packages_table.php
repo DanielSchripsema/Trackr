@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('status')->nullable();
-            $table->string('EmailSender');
-            $table->string('EmailRecipient');
+            $table->string('emailSender');
+            $table->string('emailRecipient');
             $table->foreignId('sender_id');
             $table->foreignId('recipient_id')->nullable();
             $table->foreignId('sender_address_id');
