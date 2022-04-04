@@ -26,6 +26,8 @@ Route::get('/', function () {
 
 Route::get('admin', [AdminController::class, 'index'])
 	->middleware(['auth']);
+Route::get('pickUpPlanSystem', [AdminController::class, 'pickUpPlanSystem'])
+    ->middleware(['auth']);
 
 
 Route::get('/dashboard', function () {
