@@ -1,14 +1,17 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<x-app-layout>
+	<x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard / Add: Super admin account') }}
+        </h2>
+    </x-slot>
 
-	<h2> (__('Create a super-admin account') </h2>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
 
-        <!-- Validation Errors -->
+
+<!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('register-super-admin') }}">
@@ -48,14 +51,13 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
                 <x-button class="ml-4">
-                    {{ __('Register') }}
+                    {{ __('Add') }}
                 </x-button>
             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
