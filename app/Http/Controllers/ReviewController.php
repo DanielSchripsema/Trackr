@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('Homepage.home');
     }
 
     /**
@@ -21,9 +22,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($packageId)
     {
-        //
+	return	view('review-delivery')->with('packageId', $packageId);
     }
 
     /**
@@ -34,16 +35,28 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'stars' => ['digits_between:1,5'],
+        ]);
+
+
+        $review = Review::create([
+            'text' => $request->text,
+            'stars' => $request->stars,
+	    'package_id' => $request->packageId,
+        ]);
+
+        return redirect(Route('my-packages'));
+       //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Review $review)
     {
         //
     }
@@ -51,10 +64,10 @@ class HomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Review $review)
     {
         //
     }
@@ -63,10 +76,10 @@ class HomeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Review $review)
     {
         //
     }
@@ -74,10 +87,10 @@ class HomeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Review $review)
     {
         //
     }

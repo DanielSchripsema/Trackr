@@ -10,8 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
-class RegisteredUserController extends Controller
+class RegisteredRecieverUserController extends Controller
 {
     /**
      * Display the registration view.
@@ -20,9 +23,8 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        return view('auth.register-r');
     }
-
     /**
      * Handle an incoming registration request.
      *
@@ -45,8 +47,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+	$user->assignRole('reciever');
 
+        event(new Registered($user));
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
