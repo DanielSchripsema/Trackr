@@ -3,7 +3,7 @@
     <x-slot name="header">
 	<div style="display: flex">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard / Bulkanator 3000: One and only commercial label maker') }}
+            {{ __('content.Bulkanator') }}
         </h2>
 	</div>
     </x-slot>
@@ -16,12 +16,12 @@
 
 		<form method="POST" action="{{ route('store-labels') }}">
 		    @csrf
-		<x-label for="api-calls"  value="API-calls (seperate each call with a comma): " />
+		<x-label for="api-calls"  value="API-calls {{ __('content.alert') }} " />
 
 		<x-input id="api-calls" style="height: 300px; margin: auto;" class="block mt-1 w-full" type="text" name="api-calls" :value="old('')" required autofocus />
 	    <div class="flex items-center justify-end mt-4">
 		<x-button value="submit" class="ml-4">
-		    {{ __('Add') }}
+		    {{ __('content.Add') }}
 		</x-button>
 		</form>
 		</div>
