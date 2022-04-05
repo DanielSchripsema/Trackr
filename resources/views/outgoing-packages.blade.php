@@ -1,10 +1,35 @@
 
 <x-app-layout>
     <x-slot name="header">
+	<div style="display: flex">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard / Outgoing packages') }}
         </h2>
+	<div style="margin-left: auto; display:flex">
+		<form method="GET" action="/dashboard/outgoing-packages/">
+			@csrf
+			<select name="status" id="status">
+				<option value="" selected disabled>Filter by status...</option>
+				<option value"signed up">Signed up</option>
+				<option value"printed">Printed</option>
+				<option value"delivered">Delivered</option>
+				<option value"sorting centre">Sorting centre</option>
+				<option value"on the way">On the way</option>
+			</select> 
+			<select name="time" id="time">
+				<option value="" selected disabled>Time order...</option>
+				<option value="desc">Order descending</option>
+				<option value="asc">Order ascending</option>
+			</select> 
+			<input type="text" name="search" placeholder="Find package...">	
+			<x-button value="submit">
+					    {{ __('Search') }}
+			</x-button>
+		</form>
+	</div>
+	</div>
     </x-slot>
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -13,7 +38,7 @@
 		@if (count($packages) > 0)
 
 		<form method="POST" action="print-lables">
-			@csrf
+		@csrf
 		<x-button value="submit" style="margin: 10px; margin-right: 5px;">
 			Print labels
 		</x-button>
@@ -32,7 +57,7 @@
 			
 			<br>			
 		        <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-			    {{ __('Package') }}
+			    {{ __('Package') }} #{{ $package->id }}
 			</h3>
 			<div style="float: right">
 			     Print label: 
@@ -41,6 +66,7 @@
 
 			Status: {{ $package->status}} <br>
 			Sender: {{ $package->Sender->name }}  <br>
+			Creation: {{ $package->created_at->diffForHumans()}} <br>
 			Sharable link: <span style="background-color: lightgray; color: black">
 			{{ $package->guest_link }}	
 			</span><br>
@@ -87,10 +113,12 @@
 
 		</form>
 		@else
-			No packages fround
+			No packages found
 		@endif
                 </div>
             </div>
+		{{ $packages->links() }}
         </div>
     </div>
+	
 </x-app-layout>

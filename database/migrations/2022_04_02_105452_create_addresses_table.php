@@ -20,8 +20,8 @@ return new class extends Migration
             $table->String('country');
             $table->String('street_name');
             $table->String('house_number');
-            $table->String('postal_code');
-            $table->String('city');
+	    $table->String('postal_code');
+	    $table->String('city');
         });
     }
 

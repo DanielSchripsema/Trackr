@@ -24,7 +24,7 @@ class ReviewController extends Controller
      */
     public function create($packageId)
     {
-	return	view('review-delivery')->with('packageId', $packageId);
+	return	view('review-delivery-app')->with('packageId', $packageId);
     }
 
     /**
@@ -46,9 +46,36 @@ class ReviewController extends Controller
 	    'package_id' => $request->packageId,
         ]);
 
-        return redirect(Route('my-packages'));
-       //
+        return redirect(Route('incoming-packages'));
     }
+
+    public function createGuest($packageId)
+    {
+	return	view('review-delivery-guest')->with('packageId', $packageId);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeGuest(Request $request)
+    {
+        $request->validate([
+            'stars' => ['digits_between:1,5'],
+        ]);
+
+
+        $review = Review::create([
+            'text' => $request->text,
+            'stars' => $request->stars,
+	    'package_id' => $request->packageId,
+        ]);
+
+        return redirect($_SERVER['APP_URL'] . ":" .$_SERVER['SERVER_PORT'] . "/package/" . base64_encode($request->packageId));
+    }
+
 
     /**
      * Display the specified resource.

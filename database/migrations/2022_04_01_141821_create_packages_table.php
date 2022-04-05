@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('emailSender');
             $table->string('emailRecipient');
+            $table->string('status');
+            $table->string('email_recipient');
             $table->foreignId('sender_id');
             $table->foreignId('recipient_id')->nullable();
             $table->foreignId('sender_address_id');
@@ -27,6 +29,7 @@ return new class extends Migration
             $table->dateTime('pick_up_time')->nullable();
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -19,5 +19,11 @@ class DatabaseSeeder extends Seeder
 	    //
 	$this->call(
 		[RuleSeeder::class]);
+	$this->call(
+		[PackageSeeder::class]);
+	$this->call(
+		[AddressSeeder::class]);
+
+
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+use App\Models\Package;
 
 class RegisteredRecieverUserController extends Controller
 {
@@ -48,10 +49,21 @@ class RegisteredRecieverUserController extends Controller
         ]);
 
 	$user->assignRole('reciever');
-
+	$this->linkPackagesToAccount($user);
         event(new Registered($user));
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    private function linkPackagesToAccount($user)
+    {
+	$packages = Package::where('email_recipient', '=', $user->email);
+	foreach($packages as $package){
+		$package->recpient_id = $user->id;
+	}
+    }
+
+
+
 }

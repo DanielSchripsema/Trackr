@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LabelController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,18 +23,26 @@ Route::get('/dashboard/outgoing-packages', [PackageController::class, 'outgoingP
 Route::get('/dashboard/incoming-packages', [PackageController::class, 'incomingPackages'])
 	->middleware(['auth'])->name('incoming-packages');
 
-Route::post('/dashboard/print-lables', [PackageController::class, 'printLables'])
+Route::get('/package/{id}', [PackageController::class, 'guestPackage'])
+	->name('guest-package');
+
+Route::post('/dashboard/print-lables', [LabelController::class, 'printLables'])
 	->middleware(['auth'])->name('print-lables');
 
 Route::get('/dashboard/review-delivery/{packageId}', [ReviewController::class, 'create'])
 	->middleware(['auth'])->name('review-delivery');
 
+Route::get('/package/review-delivery/{packageId}', [ReviewController::class, 'createGuest'])
+	->name('review-delivery-guest');
+
+Route::get('/dashboard/create-labels', [PackageController::class, 'index'])
+	->middleware(['auth'])->name('create-labels');
+
+Route::post('/package/add-delivery-review', [ReviewController::class, 'storeGuest'])
+	->name('add-delivery-review-guest');
+
 Route::post('/dashboard/add-delivery-review', [ReviewController::class, 'store'])
 	->middleware(['auth'])->name('add-delivery-review');
-
-Route::get('/package/{id}', [PackageController::class, 'getGuestPackage'])
-	->name('guest-package');
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
@@ -43,11 +51,7 @@ Route::get('/API/emailSender={sender}&emailRecipient={recipient}&SenderCountry{S
 
 Route::get('/API/Changepackage{packageID}To{status}', [App\Http\Controllers\APIController::class, 'ChangeStatus'])->name('ChangeStatus');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('admin', [AdminController::class, 'index'])
+Route::get('/', [PackageController::class, 'incomingPackages'])
 	->middleware(['auth']);
 
 Route::get('/dashboard/pick-up-plan-system', [AdminController::class, 'pickUpPlanSystem'])
@@ -57,10 +61,8 @@ Route::GET('/dashboard/changePickUp', [AdminController::class, 'changePickUp'])
 Route::GET('/dashboard/ConfirmPickUpChange', [AdminController::class, 'ConfirmPickUpChange'])
     ->middleware(['auth'])->name('ConfirmPickUpChange');
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
 
 require __DIR__.'/auth.php';
