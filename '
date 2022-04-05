@@ -18,19 +18,16 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
-Route::group(['middleware' => ['permission:limited-read']], function () {
-	Route::get('/dashboard/incoming-packages', [PackageController::class, 'incomingPackages'])
-	->name('incoming-packages');
-});
 
 Route::get('/', [AuthenticatedSessionController::class, 'create'])
-               ->middleware('guest')->name('login');
+               ->middleware("guest")->name('/');
+
 
 Route::get('/dashboard/outgoing-packages', [PackageController::class, 'outgoingPackages'])
 	->middleware(['permission:read'])->name('outgoing-packages');
 
-Route::get('/dashboard/all-packages', [PackageController::class, 'allPackages'])
-	->middleware(['role:admin|super-admin|packer'])->name('all-packages');
+Route::get('/dashboard/incoming-packages', [PackageController::class, 'incomingPackages'])
+	->middleware(['permission:limited read'])->name('incoming-packages');
 
 Route::get('/package/{id}', [PackageController::class, 'guestPackage'])
 	->middleware('guest')->name('guest-package');
@@ -39,7 +36,7 @@ Route::post('/dashboard/print-lables', [LabelController::class, 'printLables'])
 	->middleware(['permission:write'])->name('print-lables');
 
 Route::get('/dashboard/review-delivery/{packageId}', [ReviewController::class, 'create'])
-	->middleware(['permission:limited-read'])->name('review-delivery');
+	->middleware(['permission:limited read'])->name('review-delivery');
 
 Route::get('/package/review-delivery/{packageId}', [ReviewController::class, 'createGuest'])
 	->middleware('guest')->name('review-delivery-guest');
@@ -57,11 +54,12 @@ Route::post('/package/add-delivery-review', [ReviewController::class, 'storeGues
 Route::post('/dashboard/add-delivery-review', [ReviewController::class, 'store'])
 	->middleware(['permission:write'])->name('add-delivery-review');
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
-Route::get('/API/key={key}&emailSender={sender}&emailRecipient={recipient}&SenderCountry{SenderCountry}&SenderStreetName{SenderStreetName}&SenderHouseNumber{SenderHouseNumber}&SenderPostalCode{SenderPostalCode}&SenderCity{SenderCity}&RecipientCountry{RecipientCountry}&RecipientStreetName{RecipientStreetName}&RecipientHouseNumber{RecipientHouseNumber}&RecipientPostalCode{RecipientPostalCode}&RecipientCity{RecipientCity}&FirstnameSender{FirstnameSender}&LastnameSender&{LastnameSender}&FirstnameRecipient{FirstnameRecipient}&LastnameRecipient{LastnameRecipient}
+Route::get('/API/emailSender={sender}&emailRecipient={recipient}&SenderCountry{SenderCountry}&SenderStreetName{SenderStreetName}&SenderHouseNumber{SenderHouseNumber}&SenderPostalCode{SenderPostalCode}&SenderCity{SenderCity}&RecipientCountry{RecipientCountry}&RecipientStreetName{RecipientStreetName}&RecipientHouseNumber{RecipientHouseNumber}&RecipientPostalCode{RecipientPostalCode}&RecipientCity{RecipientCity}&FirstnameSender{FirstnameSender}&LastnameSender&{LastnameSender}&FirstnameRecipient{FirstnameRecipient}&LastnameRecipient{LastnameRecipient}
 ', [App\Http\Controllers\APIController::class, 'insert'])->name('insert');
 
-Route::get('/API/key={key}&Changepackage{packageID}To{status}', [App\Http\Controllers\APIController::class, 'ChangeStatus'])->name('ChangeStatus');
+Route::get('/API/Changepackage{packageID}To{status}', [App\Http\Controllers\APIController::class, 'ChangeStatus'])->name('ChangeStatus');
 
 Route::get('/dashboard/pick-up-plan-system', [AdminController::class, 'pickUpPlanSystem'])
     ->middleware(['permission:write'])->name('pick-up-plan-system');
@@ -70,13 +68,5 @@ Route::GET('/dashboard/changePickUp', [AdminController::class, 'changePickUp'])
 Route::GET('/dashboard/ConfirmPickUpChange', [AdminController::class, 'ConfirmPickUpChange'])
     ->middleware(['permission:write'])->name('ConfirmPickUpChange');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['permission:limited-read'])->name('dashboard');
-
-Route::get('/lang/{lang}',[
-    'uses' => 'App\Http\Controllers\LanguageController@switchLang',
-    'as'   => 'switch'
-]);
 
 require __DIR__.'/auth.php';

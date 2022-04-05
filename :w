@@ -12,9 +12,9 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-		@can('write')
+		@can('write')		   
 	            <x-nav-link :href="route('create-labels')" :active="request()->routeIs('create-labels')">
-                        {{ __('navbar.Createlabels') }}
+                        {{ __('Create labels') }}
                     </x-nav-link>
 		@endcan
 		@role('admin|super-admin')
@@ -29,7 +29,7 @@
 		@endcan
 		@role('packer|admin|super-admin')
 		    <x-nav-link :href="route('all-packages')" :active="request()->routeIs('all-packages')">
-                        {{ __('navbar.Allpackages') }}
+                        {{ __('All packages') }}
                     </x-nav-link>
 		@endcan
 
@@ -39,10 +39,13 @@
                     </x-nav-link>
 		@endcan
 
+
                             @foreach (Config::get('languages') as $lang => $language)
                                     <a href="{!! route('switch', ['lang'=>$lang]) !!}">{{$language}}</a>
                             @endforeach
 
+
+		
 		@can('god')
 		    <x-nav-link :href="route('register-super-admin')" :active="request()->routeIs('register-super-admin')">
                         {{ __('navbar.addAdmin') }}
@@ -70,18 +73,19 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
+
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
-
 			@can('write')
-				<x-dropdown-link href="#"
-                                    onclick="javascript: alert('API-key: {{ base64_encode(Auth::user()->email)}}');">
+				<x-dropdown-link :href="route('logout')"
+                                    onclick="javascript: alert("{{ base64_encode(Auth::user()->name)}}")
                                 {{ __('API-key') }}
 				 </x-dropdown-link>
+                            </x-dropdown-link>
 			@endcan
 
                     </x-slot>

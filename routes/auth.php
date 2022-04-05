@@ -6,15 +6,17 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\RegisteredRecieverUserController;
+use App\Http\Controllers\Auth\RegisteredSuperAdminUserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
+    Route::get('register-reciever', [RegisteredRecieverUserController::class, 'create'])
+                ->name('register-reciever');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register-reciever', [RegisteredRecieverUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -34,7 +36,12 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
+Route::get('register-super-admin', [RegisteredSuperAdminUserController::class, 'create'])
+                ->middleware(['permission:god'])->name('register-super-admin');
+
 Route::middleware('auth')->group(function () {
+    Route::post('register-super-admin', [RegisteredSuperAdminUserController::class, 'store']);
+
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
