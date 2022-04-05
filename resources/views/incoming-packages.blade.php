@@ -9,23 +9,23 @@
 	<div style="margin-left: auto; display:flex">
 		<form method="GET" action="/dashboard/incoming-packages/">
 		@csrf
-			<select name="status" id="status">
-				<option value="" selected disabled>Filter by status...</option>
-				<option value"signed up">Signed up</option>
-				<option value"printed">Printed</option>
-				<option value"delivered">Delivered</option>
-				<option value"sorting centre">Sorting centre</option>
-				<option value"on the way">On the way</option>
-			</select> 
-			<select name="time" id="time">
-				<option value="" selected disabled>Time order...</option>
-				<option value="desc">Order descending</option>
-				<option value="asc">Order ascending</option>
-			</select> 
-			<input type="text" name="search" placeholder="Find package...">	
-			<x-button value="submit">
-					    {{ __('Search') }}
-			</x-button>
+            <select name="status" id="status">
+                <option value="" selected disabled>   {{ __('content.Filter') }}</option>
+                <option value"signed up">Signed up</option>
+                <option value"printed">Printed</option>
+                <option value"delivered">Delivered</option>
+                <option value"sorting centre">Sorting centre</option>
+                <option value"on the way">On the way</option>
+            </select>
+            <select name="time" id="time">
+                <option value="" selected disabled>{{ __('content.Timeorder') }}</option>
+                <option value="desc">{{ __('content.Orderdescending') }}</option>
+                <option value="asc">{{ __('content.Orderascending') }}</option>
+            </select>
+            <input type="text" name="search" placeholder='{{ __('content.Findpackage') }}'>
+            <x-button value="submit">
+                {{ __('content.Search') }}
+            </x-button>
 		</form>
 	</div>
 	</div>
