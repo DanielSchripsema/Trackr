@@ -38,7 +38,8 @@ class AdminController extends Controller
     }
 
     public function changePickUp(Request $request) {
-      $array = [];
+        if (count((array)$request->package) == 0) abort(404);
+        $array = [];
         foreach($request->package as $id) {
             $packages = Package::find($id);
             array_push($array, $packages);
