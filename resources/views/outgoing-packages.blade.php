@@ -3,7 +3,7 @@
     <x-slot name="header">
 	<div style="display: flex">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard / Outgoing packages') }}
+            {{ __('content.Outgoingpackages') }}
         </h2>
 	<div style="margin-left: auto; display:flex">
 		<form method="GET" action="/dashboard/outgoing-packages/">
@@ -47,52 +47,52 @@
 			for (var checkbox of checkboxes){
 				checkbox.checked = true;
 			}">
-			Select all
+            {{ __('content.Selectall') }}
 		</x-button>
 
 		<br>
 		<hr>
 
 		@foreach ($packages as $package)
-			
-			<br>			
+
+			<br>
 		        <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-			    {{ __('Package') }} #{{ $package->id }}
+			     #{{ $package->id }}
+			    {{ __('content.Package') }}
 			</h3>
 			<div style="float: right">
-			     Print label: 
+			     Print label:
 			     <input type="checkbox" name="package[]" value="{{ $package->id }}">
 			</div>
 
 			Status: {{ $package->status}} <br>
-			Sender: {{ $package->Sender->name }}  <br>
-			Creation: {{ $package->created_at->diffForHumans()}} <br>
-			Sharable link: <span style="background-color: lightgray; color: black">
-			{{ $package->guest_link }}	
+                {{ __('content.Sender') }}: : {{ $package->Sender->name }}  <br>
+                {{ $package->guest_link }}: <span style="background-color: lightgray; color: black">
+			{{ $package->guest_link }}
 			</span><br>
 			@if ($package->review != NULL)
-			Recipient feedback: 
-				@if ($package->review->text != NULL) <q>{{ $package->review->text }}</q> @endif 
+                    {{ __('content.Recipientfeedback') }}:
+				@if ($package->review->text != NULL) <q>{{ $package->review->text }}</q> @endif
 				@for ($i = 0; $i < $package->review->stars; $i++) &#9733 @endfor /
 				@for ($i = 0; $i < 5; $i++) &#9733 @endfor
 			@endif
-			
+
 			<div style="display: flex; padding: 5px">
 			<div style="margin: 5px">
-			Sender Addresss:<br>
-			{{ $package->SenderAddress->firstname }} 
+                {{ __('content.SenderAddresss') }}:<br>
+			{{ $package->SenderAddress->firstname }}
 			{{ $package->SenderAddress->lastname}} <br>
-			{{ $package->SenderAddress->street_name}}  
+			{{ $package->SenderAddress->street_name}}
 			{{ $package->SenderAddress->house_number}} <br>
 			{{ $package->SenderAddress->postal_code}}
 			{{ $package->SenderAddress->city}}<br>
 			{{ $package->SenderAddress->country}} <br>
 			</div>
 			<div style="margin: 5px; margin-left: 30px">
-			Recipient Address:<br>
-			{{ $package->RecipientAddress->firstname }} 
+                {{ __('content.RecipientAddresss') }}:<br>
+			{{ $package->RecipientAddress->firstname }}
 			{{ $package->RecipientAddress->lastname}} <br>
-			{{ $package->RecipientAddress->street_name}}  
+			{{ $package->RecipientAddress->street_name}}
 			{{ $package->RecipientAddress->house_number}} <br>
 			{{ $package->RecipientAddress->postal_code}}
 			{{ $package->RecipientAddress->city}}<br>
@@ -101,10 +101,10 @@
 			<div style="margin: 5px; margin-left: 30px">
 			Barcode:<br>
 			{!! $package->barcode !!}
-			{{ $package->barcode_str }} 
+			{{ $package->barcode_str }}
 			</div>
 			</div>
-		
+
 			<hr>
 		@endforeach
 		<x-button value="submit" style="margin: 10px;">
@@ -113,7 +113,7 @@
 
 		</form>
 		@else
-			No packages found
+                        {{ __('content.Nopackagesfround') }}
 		@endif
                 </div>
             </div>

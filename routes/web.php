@@ -74,4 +74,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['permission:limited-read'])->name('dashboard');
 
+Route::get('/lang/{lang}',[
+    'uses' => 'App\Http\Controllers\LanguageController@switchLang',
+    'as'   => 'switch'
+]);
+
 require __DIR__.'/auth.php';

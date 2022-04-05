@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            pick up schedule system
+            {{__('content.pickupschedulesystem')}}
         </h2>
     </x-slot>
 
@@ -15,14 +15,14 @@
                         <form method="GET" action="changePickUp">
                             @csrf
                             <x-button value="submit" style="margin: 10px; margin-right: 5px;">
-                                Request pick up
+                                {{ __('content.Requestpickup') }}
                             </x-button>
                             <x-button type="button" style="margin: 10px; margin-left: 5px;" onclick="
                             var checkboxes = document.getElementsByName('package[]');
                             for (var checkbox of checkboxes){
                                 checkbox.checked = true;
 			}">
-                                Select all
+                                {{ __('content.Selectall') }}
                             </x-button>
 
                             <br>
@@ -32,23 +32,22 @@
 
                                 <br>
                                 <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-                                    {{ __('Package') }}
+                                    {{ __('content.Package') }}
                                 </h3>
                                 <div style="float: right">
-                                    Request pick up:
+                                    {{ __('content.Requestpickup') }}:
                                     <input type="checkbox" name="package[]" value="{{ $package->id }}">
                                 </div>
-                                Aangemeld sinds: {{ $package->created_at}} <br>
-                                Pick up time: {{ $package->pick_up_time}} <br>
+                                {{ __('content.pickUpTime') }}: {{ $package->pick_up_time}} <br>
                                 Status: {{ $package->status}} <br>
-                                Sender: {{ $package->Sender->name }}  <br>
-                                Sharable link: <span style="background-color: lightgray; color: black">
+                                {{ __('content.Sender') }}: {{ $package->Sender->name }}  <br>
+                                {{ __('content.Sharablelink') }}: <span style="background-color: lightgray; color: black">
 			{{ $package->guest_link }}
 			</span><br>
 
                                 <div style="display: flex; padding: 5px">
                                     <div style="margin: 5px">
-                                        Sender Addresss:<br>
+                                        {{ __('content.SenderAddresss') }}:<br>
                                         {{ $package->SenderAddress->firstname }}
                                         {{ $package->SenderAddress->lastname}} <br>
                                         {{ $package->SenderAddress->street_name}}
@@ -58,7 +57,7 @@
                                         {{ $package->SenderAddress->country}} <br>
                                     </div>
                                     <div style="margin: 5px; margin-left: 30px">
-                                        Recipient Address:<br>
+                                        {{ __('content.RecipientAddresss') }}:<br>
                                         {{ $package->RecipientAddress->firstname }}
                                         {{ $package->RecipientAddress->lastname}} <br>
                                         {{ $package->RecipientAddress->street_name}}
@@ -73,12 +72,12 @@
                                 <hr>
                             @endforeach
                             <x-button value="submit" style="margin: 10px;">
-                                Request pick up
+                                {{ __('content.Requestpickup') }}
                             </x-button>
 
                         </form>
                     @else
-                        No packages fround
+                        {{ __('content.Nopackagesfround') }}
                     @endif
                 </div>
             </div>

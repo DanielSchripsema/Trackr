@@ -19,12 +19,12 @@
 		@endcan
 		@role('admin|super-admin')
 		    <x-nav-link :href="route('outgoing-packages')" :active="request()->routeIs('outgoing-packages')">
-                        {{ __('My send packages') }}
+                        {{ __('navbar.sended') }}
                     </x-nav-link>
 		@endrole
 		@role('reciever|admin|super-admin')
 		    <x-nav-link :href="route('incoming-packages')" :active="request()->routeIs('incoming-packages')">
-                        {{ __('My incoming packages') }}
+                        {{ __('navbar.incoming') }}
                     </x-nav-link>
 		@endcan
 		@role('packer|admin|super-admin')
@@ -35,12 +35,20 @@
 
 		@can('write')
             <x-nav-link :href="route('pick-up-plan-system')" :active="request()->routeIs('pick-up-plan-system')">
-                        {{ __('pick up schedule system') }}
+                        {{ __('navbar.pickUp') }}
                     </x-nav-link>
 		@endcan
 		@can('god')
+
+
+                            @foreach (Config::get('languages') as $lang => $language)
+                                    <a href="{!! route('switch', ['lang'=>$lang]) !!}">{{$language}}</a>
+                            @endforeach
+
+
+
 		    <x-nav-link :href="route('register-super-admin')" :active="request()->routeIs('register-super-admin')">
-                        {{ __('Add a super-admin') }}
+                        {{ __('navbar.addAdmin') }}
                     </x-nav-link>
 		@endcan
                 </div>
