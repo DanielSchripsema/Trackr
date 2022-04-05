@@ -73,18 +73,19 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
+
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
-
 			@can('write')
-				<x-dropdown-link href="#"
-                                    onclick="javascript: alert('API-key: {{ base64_encode(Auth::user()->email)}}');">
+				<x-dropdown-link :href="route('logout')"
+                                    onclick="javascript: alert("{{ base64_encode(Auth::user()->name)}}")
                                 {{ __('API-key') }}
 				 </x-dropdown-link>
+                            </x-dropdown-link>
 			@endcan
 
                     </x-slot>
