@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            change pick up
+            {{__('content.pickupChange')}}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h3>At least 1 day in advance before 15:00.</h3>
+                    <h3>{{__('content.warning')}}</h3>
                     @if (count(array($packages)) > 0)
 
                         @if ($errors->any())
@@ -26,32 +26,32 @@
                         <form method="GET" action="ConfirmPickUpChange">
                             @csrf
                             <x-button value="submit" style="margin: 10px; margin-right: 5px;">
-                                change pick up
+                                {{__('content.pickupChange')}}
                             </x-button>
 
 
                             <div class="form-group">
-                                <label for="formGroupExampleInput">Country:</label>
+                                <label for="formGroupExampleInput">{{__('content.country')}}:</label>
                                 <input type="text" class="form-control" name="Country"  placeholder="Country input">
                             </div>
                             <div class="form-group">
-                                <label for="formGroupExampleInput">Srteet name:</label>
+                                <label for="formGroupExampleInput">{{__('content.Srteetname')}}:</label>
                                 <input type="text" class="form-control" name="Srteetname" placeholder="Srteet name input">
                             </div>
                             <div class="form-group">
-                                <label for="formGroupExampleInput">house number:</label>
+                                <label for="formGroupExampleInput">{{__('content.housenumber')}}:</label>
                                 <input type="number" class="form-control" name="housenumber" placeholder="house number input">
                             </div>
                             <div class="form-group">
-                                <label for="formGroupExampleInput">postal code:</label>
+                                <label for="formGroupExampleInput">{{__('content.postalcode')}}:</label>
                                 <input type="text" class="form-control" name="postalcode" placeholder="postal code input">
                             </div>
                             <div class="form-group">
-                                <label for="formGroupExampleInput">City:</label>
+                                <label for="formGroupExampleInput">{{__('content.City')}}:</label>
                                 <input type="text" class="form-control" name="City" placeholder="City input">
                             </div>
                             <div class="form-group">
-                                <label for="formGroupExampleInput">Date:</label>
+                                <label for="formGroupExampleInput">{{__('content.Date')}}:</label>
                                 <input type="datetime-local" class="form-control" name="Date" >
                             </div>
 
@@ -65,21 +65,20 @@
 
                                 <br>
                                 <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-                                    {{ __('Package') }}
+                                    {{ __('content.Package') }}
                                 </h3>
                                 <input type="hidden" name="package[]" value="{{ $package->id }}">
 
-                                Aangemeld sinds: {{ $package->created_at}} <br>
-                                Pick up time: {{ $package->pick_up_time}} <br>
+                                {{__('content.pickUpTime')}}: {{ $package->pick_up_time}} <br>
                                 Status: {{ $package->status}} <br>
-                                Sender: {{ $package->Sender->name }}  <br>
-                                Sharable link: <span style="background-color: lightgray; color: black">
+                                {{__('content.Sender')}}: {{ $package->Sender->name }}  <br>
+                                {{__('content.Sharablelink')}}: <span style="background-color: lightgray; color: black">
 			{{ $package->guest_link }}
 			</span><br>
 
                                 <div style="display: flex; padding: 5px">
                                     <div style="margin: 5px">
-                                        Sender Addresss:<br>
+                                        {{__('content.SenderAddresss')}}:<br>
                                         {{ $package->SenderAddress->firstname }}
                                         {{ $package->SenderAddress->lastname}} <br>
                                         {{ $package->SenderAddress->street_name}}
@@ -89,7 +88,7 @@
                                         {{ $package->SenderAddress->country}} <br>
                                     </div>
                                     <div style="margin: 5px; margin-left: 30px">
-                                        Recipient Address:<br>
+                                        {{__('content.RecipientAddresss')}}:<br>
                                         {{ $package->RecipientAddress->firstname }}
                                         {{ $package->RecipientAddress->lastname}} <br>
                                         {{ $package->RecipientAddress->street_name}}
@@ -104,12 +103,12 @@
                                 <hr>
                             @endforeach
                             <x-button value="submit" style="margin: 10px;">
-                                change pick up
+                                {{__('content.pickupChange')}}
                             </x-button>
 
                         </form>
                     @else
-                        No packages fround
+                        {{__('content.Nopackagesfround')}}
                     @endif
                 </div>
             </div>

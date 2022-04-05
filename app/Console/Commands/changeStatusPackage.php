@@ -29,13 +29,7 @@ class changeStatusPackage extends Command
      */
     public function handle()
     {
-       // returnCallback('/API/Changepackage{packageID}To{status}');
-//        DB::insert('insert into addresses (country, street_name,house_number, postal_code, city) values (kk, kk, 3, 4444 GH, eindhoven)');
-        $package = new Package();
-        $package->recipient_id = 1;
-        $package->recipient_address_id = 1;
-        $package->sender_address_id = 1;
-        $package->EmailRecipient = "sa@example.com";
-        $package->EmailSender = 'a@example.com';
+        return redirect('/API/emailSender=sa@example.com&emailRecipient=a@example.com&SenderCountryNetherlands&SenderStreetNameIcaruslaan&SenderHouseNumber25&SenderPostalCode4545LH&SenderCityBreda&RecipientCountryNetherlands&RecipientStreetNameBredaLaan&RecipientHouseNumber15&RecipientPostalCode234KJ&RecipientCityBreda&FirstnameSenderLucas&LastnameSender&Brado&FirstnameRecipientDaniel&LastnameRecipientSchripsema');
+
     }
 }

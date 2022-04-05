@@ -1,5 +1,12 @@
 <?php
 
 return [
-    'incoming' => 'My send packages',
+    'sended' => 'My send packages',
+    'yourLoggedIn'=> 'You are logged in!',
+    'Dashboard'=> 'Dashboard',
+    'incoming'=> 'My incoming packages',
+    'pickUp' => 'pick up schedule system',
+    'addAdmin' => 'add admin'
+
+
 ];
