@@ -6,8 +6,6 @@ return [
     'incoming'=> 'Mijn inkomende pakketten',
     'Dashboard'=> 'Dashboard',
     'pickUp' => 'ophaalschema systeem',
-    'addAdmin' => 'voeg beheerder toe',
-    'Createlabels' => 'maak Labels aan',
-    'Allpackages' => 'alle pakketten',
+    'addAdmin' => 'voeg beheerder toe'
 
 ];

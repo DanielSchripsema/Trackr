@@ -22,21 +22,8 @@ return [
     'Incomingpackages' => 'Incoming packages',
     'Recipientfeedback' => 'Recipient feedback',
     'Outgoingpackages' => 'Outgoing packages',
-    'Bulkanator' => 'Bulkanator 3000: One and only commercial label maker',
-    'Add' => 'Add',
-    'alert' => "(seperate each call with a comma):",
-    'Filter' => 'Filter by status...',
-    'Signedup' => 'Signed up',
-    'Printed' => 'Printed',
-    'Delivered' => 'Delivered',
-    'Sortingcentre' => 'Sorting centre',
-    'Ontheway' => 'On the way',
-    'Timeorder' => 'Time order...',
-    'Orderdescending' => 'Order descending',
-    'Orderascending' => 'Order ascending',
-    'Findpackage' => 'Find package...',
-    'Search' => 'Search',
-    'Creation' => 'Creation'
+
+
 
 
 ];

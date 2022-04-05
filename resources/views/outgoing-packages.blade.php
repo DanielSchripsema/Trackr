@@ -9,22 +9,22 @@
 		<form method="GET" action="/dashboard/outgoing-packages/">
 			@csrf
 			<select name="status" id="status">
-				<option value="" selected disabled>   {{ __('content.Filter') }}</option>
+				<option value="" selected disabled>Filter by status...</option>
 				<option value"signed up">Signed up</option>
 				<option value"printed">Printed</option>
 				<option value"delivered">Delivered</option>
 				<option value"sorting centre">Sorting centre</option>
 				<option value"on the way">On the way</option>
-			</select>
-            <select name="time" id="time">
-                <option value="" selected disabled>{{ __('content.Timeorder') }}</option>
-                <option value="desc">{{ __('content.Orderdescending') }}</option>
-                <option value="asc">{{ __('content.Orderascending') }}</option>
-            </select>
-            <input type="text" name="search" placeholder='{{ __('content.Findpackage') }}'>
-            <x-button value="submit">
-                {{ __('content.Search') }}
-            </x-button>
+			</select> 
+			<select name="time" id="time">
+				<option value="" selected disabled>Time order...</option>
+				<option value="desc">Order descending</option>
+				<option value="asc">Order ascending</option>
+			</select> 
+			<input type="text" name="search" placeholder="Find package...">	
+			<x-button value="submit">
+					    {{ __('Search') }}
+			</x-button>
 		</form>
 	</div>
 	</div>
@@ -66,9 +66,8 @@
 			</div>
 
 			Status: {{ $package->status}} <br>
-             {{ __('content.Sender') }}: {{ $package->Sender->name }}  <br>
-             {{ __('content.Creation') }}: {{ $package->created_at->diffForHumans()}} <br>
-             {{ $package->guest_link }}: <span style="background-color: lightgray; color: black">
+                {{ __('content.Sender') }}: : {{ $package->Sender->name }}  <br>
+                {{ $package->guest_link }}: <span style="background-color: lightgray; color: black">
 			{{ $package->guest_link }}
 			</span><br>
 			@if ($package->review != NULL)
@@ -121,5 +120,5 @@
 		{{ $packages->links() }}
         </div>
     </div>
-
+	
 </x-app-layout>

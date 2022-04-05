@@ -12,9 +12,9 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-		@can('write')
+		@can('write')		   
 	            <x-nav-link :href="route('create-labels')" :active="request()->routeIs('create-labels')">
-                        {{ __('navbar.Createlabels') }}
+                        {{ __('Create labels') }}
                     </x-nav-link>
 		@endcan
 		@role('admin|super-admin')
@@ -29,7 +29,7 @@
 		@endcan
 		@role('packer|admin|super-admin')
 		    <x-nav-link :href="route('all-packages')" :active="request()->routeIs('all-packages')">
-                        {{ __('navbar.Allpackages') }}
+                        {{ __('All packages') }}
                     </x-nav-link>
 		@endcan
 
@@ -39,9 +39,13 @@
                     </x-nav-link>
 		@endcan
 		@can('god')
+
+
                             @foreach (Config::get('languages') as $lang => $language)
                                     <a href="{!! route('switch', ['lang'=>$lang]) !!}">{{$language}}</a>
                             @endforeach
+
+
 
 		    <x-nav-link :href="route('register-super-admin')" :active="request()->routeIs('register-super-admin')">
                         {{ __('navbar.addAdmin') }}
