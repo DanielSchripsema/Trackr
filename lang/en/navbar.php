@@ -6,7 +6,9 @@ return [
     'Dashboard'=> 'Dashboard',
     'incoming'=> 'My incoming packages',
     'pickUp' => 'pick up schedule system',
-    'addAdmin' => 'add admin'
+    'addAdmin' => 'add admin',
+    'Createlabels' => 'Create labels',
+    'Allpackages' => 'All packages',
 
 
 ];
