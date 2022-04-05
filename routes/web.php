@@ -58,10 +58,10 @@ Route::post('/dashboard/add-delivery-review', [ReviewController::class, 'store']
 	->middleware(['permission:write'])->name('add-delivery-review');
 
 
-Route::get('/API/emailSender={sender}&emailRecipient={recipient}&SenderCountry{SenderCountry}&SenderStreetName{SenderStreetName}&SenderHouseNumber{SenderHouseNumber}&SenderPostalCode{SenderPostalCode}&SenderCity{SenderCity}&RecipientCountry{RecipientCountry}&RecipientStreetName{RecipientStreetName}&RecipientHouseNumber{RecipientHouseNumber}&RecipientPostalCode{RecipientPostalCode}&RecipientCity{RecipientCity}&FirstnameSender{FirstnameSender}&LastnameSender&{LastnameSender}&FirstnameRecipient{FirstnameRecipient}&LastnameRecipient{LastnameRecipient}
+Route::get('/API/key={key}&emailSender={sender}&emailRecipient={recipient}&SenderCountry{SenderCountry}&SenderStreetName{SenderStreetName}&SenderHouseNumber{SenderHouseNumber}&SenderPostalCode{SenderPostalCode}&SenderCity{SenderCity}&RecipientCountry{RecipientCountry}&RecipientStreetName{RecipientStreetName}&RecipientHouseNumber{RecipientHouseNumber}&RecipientPostalCode{RecipientPostalCode}&RecipientCity{RecipientCity}&FirstnameSender{FirstnameSender}&LastnameSender&{LastnameSender}&FirstnameRecipient{FirstnameRecipient}&LastnameRecipient{LastnameRecipient}
 ', [App\Http\Controllers\APIController::class, 'insert'])->name('insert');
 
-Route::get('/API/Changepackage{packageID}To{status}', [App\Http\Controllers\APIController::class, 'ChangeStatus'])->name('ChangeStatus');
+Route::get('/API/key={key}&Changepackage{packageID}To{status}', [App\Http\Controllers\APIController::class, 'ChangeStatus'])->name('ChangeStatus');
 
 Route::get('/dashboard/pick-up-plan-system', [AdminController::class, 'pickUpPlanSystem'])
     ->middleware(['permission:write'])->name('pick-up-plan-system');

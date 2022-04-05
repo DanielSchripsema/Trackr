@@ -5,13 +5,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\Address;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class APIController extends Controller
 {
 
     function insert(Request $request)
     {
-
+        if (!$this->authenticate($request->key)) return 'false';
         if($this->checkIfExist($request->recipient) == false){
             return 'false';
         }else{
@@ -36,8 +38,8 @@ class APIController extends Controller
     }
 
     function ChangeStatus(Request $request){
+        if (!$this->authenticate($request->key)) return 'false';
         $status = null;
-
         switch ($request->status) {
             case 'signed up':
                 $status = 'signed up';
@@ -123,5 +125,12 @@ class APIController extends Controller
         }
     }
 
-
+    private function authenticate($key){
+	    try{User::where('email', '=', base64_decode($key))->firstOrFail(); 
+		    return true;
+	    }
+	    catch (\Exception $e){
+		 return false; 
+	    }
+    }
 }
