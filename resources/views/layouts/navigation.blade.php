@@ -11,27 +11,38 @@
                 </div>
 
                 <!-- Navigation Links -->
-		   
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+		@can('write')		   
 	            <x-nav-link :href="route('create-labels')" :active="request()->routeIs('create-labels')">
                         {{ __('Create labels') }}
                     </x-nav-link>
-
+		@endcan
+		@role('admin|super-admin')
 		    <x-nav-link :href="route('outgoing-packages')" :active="request()->routeIs('outgoing-packages')">
                         {{ __('My send packages') }}
                     </x-nav-link>
-
+		@endrole
+		@role('reciever|admin|super-admin')
 		    <x-nav-link :href="route('incoming-packages')" :active="request()->routeIs('incoming-packages')">
                         {{ __('My incoming packages') }}
                     </x-nav-link>
+		@endcan
+		@role('packer|admin|super-admin')
+		    <x-nav-link :href="route('all-packages')" :active="request()->routeIs('all-packages')">
+                        {{ __('All packages') }}
+                    </x-nav-link>
+		@endcan
 
+		@can('write')
             <x-nav-link :href="route('pick-up-plan-system')" :active="request()->routeIs('pick-up-plan-system')">
                         {{ __('pick up schedule system') }}
                     </x-nav-link>
-
+		@endcan
+		@can('god')
 		    <x-nav-link :href="route('register-super-admin')" :active="request()->routeIs('register-super-admin')">
                         {{ __('Add a super-admin') }}
                     </x-nav-link>
+		@endcan
                 </div>
             </div>
             <!-- Settings Dropdown -->

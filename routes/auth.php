@@ -36,10 +36,10 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
+Route::get('register-super-admin', [RegisteredSuperAdminUserController::class, 'create'])
+                ->middleware(['permission:god'])->name('register-super-admin');
+
 Route::middleware('auth')->group(function () {
-    Route::get('register-super-admin', [RegisteredSuperAdminUserController::class, 'create'])
-                ->name('register-super-admin');
-   
     Route::post('register-super-admin', [RegisteredRecieverUserController::class, 'store']);
 
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])

@@ -15,6 +15,14 @@ class PackageController extends Controller
     public function index(){
     return view('create-labels');
     }
+
+    public function allPackages(){
+       $lc = new LabelController();
+       $packages = Package::latest()->filter(request(['status', 'time']))->paginate(10);
+       $packages = $lc->labelGeneratorWithGuestLink($packages);
+       return view('all-packages')->with('packages', $packages);
+    }
+
     public function store(Request $request)
     {
 	$validator = Validator::make([], []);
