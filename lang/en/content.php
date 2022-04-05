@@ -17,7 +17,7 @@ return [
     'Nopackagesfround' => 'No packages fround',
     'Requestpickup' => 'Request pick up',
     'Selectall' => 'Select all',
-    'Package' => 'pick up schedule system',
+    'Package' => 'Package',
     'pickupschedulesystem' => 'pick up schedule system',
     'Incomingpackages' => 'Incoming packages',
     'Recipientfeedback' => 'Recipient feedback',
