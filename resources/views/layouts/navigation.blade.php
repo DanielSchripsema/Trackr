@@ -17,7 +17,7 @@
                     </x-nav-link>
 
 		    <x-nav-link :href="route('outgoing-packages')" :active="request()->routeIs('outgoing-packages')">
-                        {{ __('My send packages') }}
+                        {{ __('navbar.incoming') }}
                     </x-nav-link>
 
 		    <x-nav-link :href="route('incoming-packages')" :active="request()->routeIs('incoming-packages')">
@@ -27,6 +27,14 @@
             <x-nav-link :href="route('pick-up-plan-system')" :active="request()->routeIs('pick-up-plan-system')">
                         {{ __('pick up schedule system') }}
                     </x-nav-link>
+
+
+{{--                            @foreach (Config::get('languages') as $lang => $language)--}}
+{{--                                    <a href="{{ route('lang/', $lang) }}"> {{$language}}</a>--}}
+
+{{--                            @endforeach--}}
+
+
 
 		    <x-nav-link :href="route('register-super-admin')" :active="request()->routeIs('register-super-admin')">
                         {{ __('Add a super-admin') }}
