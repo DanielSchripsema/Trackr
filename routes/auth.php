@@ -40,7 +40,7 @@ Route::get('register-super-admin', [RegisteredSuperAdminUserController::class, '
                 ->middleware(['permission:god'])->name('register-super-admin');
 
 Route::middleware('auth')->group(function () {
-    Route::post('register-super-admin', [RegisteredRecieverUserController::class, 'store']);
+    Route::post('register-super-admin', [RegisteredSuperAdminUserController::class, 'store']);
 
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');

@@ -44,6 +44,7 @@ class RegisteredSuperAdminUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+	$user->assignRole('super-admin');
         event(new Registered($user));
         return redirect(Route("register-super-admin"));
     }

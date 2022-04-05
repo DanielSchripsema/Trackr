@@ -53,7 +53,7 @@
 			</div>
 			</div>
 			<div style="display: block ruby;">
-			<x-button onclick="location.href='http://localhost:8000/register-reciever'">
+			<x-button onclick="location.href='/register-reciever'">
 				    {{ __('Register now') }}
 			</x-button>
 			<h4> to manage your deliveries through the app!</h4>
