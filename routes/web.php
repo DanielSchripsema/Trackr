@@ -38,6 +38,10 @@ Route::get('/package/review-delivery/{packageId}', [ReviewController::class, 'cr
 Route::get('/dashboard/create-labels', [PackageController::class, 'index'])
 	->middleware(['auth'])->name('create-labels');
 
+Route::post('/dashboard/store-labels', [PackageController::class, 'store'])
+	->middleware(['auth'])->name('store-labels');
+
+
 Route::post('/package/add-delivery-review', [ReviewController::class, 'storeGuest'])
 	->name('add-delivery-review-guest');
 

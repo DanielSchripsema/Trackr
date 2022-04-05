@@ -22,6 +22,7 @@ class APIController extends Controller
             $package->sender_address_id = $this->makeAddress($request->FirstnameSender, $request->LastnameSender, $request->SenderCountry, $request->SenderStreetName, $request->SenderHouseNumber, $request->SenderPostalCode, $request->SenderCity);
             $package->EmailRecipient = $request->recipient;
             $package->EmailSender = $request->sender;
+            $package->email_recipient= $request->recipient;
             if($this->checkIfExist($request->sender)) {
                 $accsender = $this->getUser($request->sender);
                 $package->sender_id = $accsender->id;

@@ -19,10 +19,12 @@ class PackageFactory extends Factory
         return [
             'sender_id' => 1,
 	    'sender_address_id' => 1,
-	    'recipient_id' => 2,
+	    'recipient_id' => 1,
 	    'recipient_address_id' => 1,
 	    'email_recipient' => "sa@example.com",
-	    'status' => "delivered"
+	    'emailSender' => "sa@example.com",
+	    'emailRecipient' => "admin@example.com",
+	    'status' => "signed up"
         ];
     }
 }

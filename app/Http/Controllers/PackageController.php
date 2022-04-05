@@ -3,14 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Models\Package;
+use ErrorException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class PackageController extends Controller
 {
     public function index(){
     return view('create-labels');
     }
+    public function store(Request $request)
+    {
+	$validator = Validator::make([], []);
+	$validated = $request->validate([
+        'api-calls' => 'required',
+	    ]);
+	
+	try{	
+	$str_arr = explode(',', $request->input('api-calls'));  
+	if(count($str_arr) > 0){
+	foreach($str_arr as $call){
+		$response = Http::get($call);
+		$statusCode = $response->status();
+		$responseBody = json_decode($response->getBody(), true);
 
+		if(!is_numeric($responseBody)){
+		throw new ErrorException();
+		}
+	}}}
+	catch(\Exception $e){
+	$validator->errors()->add(
+		'api-call', 'Wrong syntax!');
+	return Redirect::back()->withErrors($validator)->withInput();
+	}
+        return redirect(Route('create-labels'));
+    }
 
     public function outgoingPackages() {
 

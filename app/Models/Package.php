@@ -16,8 +16,6 @@ class Package extends Model
 
     use Searchable, HasFactory;
 
-    public $timestamps = true;
-    
     public function scopeFilter($query, array $filters)
     {
 	$query->when($filters['status'] ?? false, fn($query, $status) =>
