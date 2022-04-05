@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            pick up schedule system
+            change pick up
         </h2>
     </x-slot>
 
@@ -10,20 +10,53 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    @if (count($packages) > 0)
+                    <h3>At least 1 day in advance before 15:00.</h3>
+                    @if (count(array($packages)) > 0)
 
-                        <form method="GET" action="changePickUp">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form method="GET" action="ConfirmPickUpChange">
                             @csrf
                             <x-button value="submit" style="margin: 10px; margin-right: 5px;">
-                                Request pick up
+                                change pick up
                             </x-button>
-                            <x-button type="button" style="margin: 10px; margin-left: 5px;" onclick="
-                            var checkboxes = document.getElementsByName('package[]');
-                            for (var checkbox of checkboxes){
-                                checkbox.checked = true;
-			}">
-                                Select all
-                            </x-button>
+
+
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Country:</label>
+                                <input type="text" class="form-control" name="Country"  placeholder="Country input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Srteet name:</label>
+                                <input type="text" class="form-control" name="Srteetname" placeholder="Srteet name input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">house number:</label>
+                                <input type="number" class="form-control" name="housenumber" placeholder="house number input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">postal code:</label>
+                                <input type="text" class="form-control" name="postalcode" placeholder="postal code input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">City:</label>
+                                <input type="text" class="form-control" name="City" placeholder="City input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Date:</label>
+                                <input type="datetime-local" class="form-control" name="Date" >
+                            </div>
+
+
+
 
                             <br>
                             <hr>
@@ -34,10 +67,8 @@
                                 <h3 class="font-semibold text-xl text-gray-800 leading-tight">
                                     {{ __('Package') }}
                                 </h3>
-                                <div style="float: right">
-                                    Request pick up:
-                                    <input type="checkbox" name="package[]" value="{{ $package->id }}">
-                                </div>
+                                <input type="hidden" name="package[]" value="{{ $package->id }}">
+
                                 Aangemeld sinds: {{ $package->created_at}} <br>
                                 Pick up time: {{ $package->pick_up_time}} <br>
                                 Status: {{ $package->status}} <br>
@@ -73,7 +104,7 @@
                                 <hr>
                             @endforeach
                             <x-button value="submit" style="margin: 10px;">
-                                Request pick up
+                                change pick up
                             </x-button>
 
                         </form>

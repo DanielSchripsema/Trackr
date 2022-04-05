@@ -49,8 +49,13 @@ Route::get('/', function () {
 
 Route::get('admin', [AdminController::class, 'index'])
 	->middleware(['auth']);
-Route::get('pickUpPlanSystem', [AdminController::class, 'pickUpPlanSystem'])
-    ->middleware(['auth']);
+
+Route::get('/dashboard/pick-up-plan-system', [AdminController::class, 'pickUpPlanSystem'])
+    ->middleware(['auth'])->name('pick-up-plan-system');
+Route::GET('/dashboard/changePickUp', [AdminController::class, 'changePickUp'])
+    ->middleware(['auth'])->name('changePickUp');
+Route::GET('/dashboard/ConfirmPickUpChange', [AdminController::class, 'ConfirmPickUpChange'])
+    ->middleware(['auth'])->name('ConfirmPickUpChange');
 
 
 Route::get('/dashboard', function () {
